@@ -1,0 +1,7 @@
+{
+  "name": "sapphiro_sync",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
