@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registrate</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="form-container">
+    <form class="form">
+      <div class="input-group">
+        <ion-input label="Nombre(s)" label-placement="stacked" fill="outline" placeholder="Nombre(s)" autocomplete="false" />
+      </div>
+      <div class="input-group">
+        <ion-input label="Apellido(s)" label-placement="stacked" fill="outline" placeholder="Apellido(s)" autocomplete="false" />
+      </div>
+      <div class="input-group">
+        <ion-input label="Correo electrónico" label-placement="stacked" fill="outline" placeholder="Correo electrónico" autocomplete="false" />
+      </div>
+      <div class="input-group">
+        <ion-input type="password" label="Contraseña" label-placement="stacked" fill="outline" placeholder="Contraseña" autocomplete="false">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </div>
+      <div class="input-group">
+        <ion-input type="password" label="Confirmar contraseña" label-placement="stacked" fill="outline" placeholder="Confirmar contraseña" autocomplete="false">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </div>
+      <ion-button expand="block">Registrar</ion-button>
+    </form>
+  </div>
+</ion-content>

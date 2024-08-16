@@ -12,12 +12,12 @@ export const routes: Routes = [
       import('./auth/auth.page').then((m) => m.AuthPage),
   },
   {
+    path: 'register',
+    loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
+  },
+  {
     path: 'folder/:id',
     loadComponent: () =>
       import('./folder/folder.page').then((m) => m.FolderPage),
-  },
-  {
-    path: 'auth',
-    loadComponent: () => import('./auth/auth.page').then( m => m.AuthPage)
   },
 ];

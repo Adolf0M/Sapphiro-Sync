@@ -1,12 +1,20 @@
-<ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header>
-  
-    <ion-card-content>
-      <ion-input label="Outline input" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
-    </ion-card-content>
-  </ion-card>
+<ion-content [fullscreen]="true" class="container">
+<div class="form-container">
+	<p class="title">Acceso</p>
+	<form class="form">
+    <div class="input-group">
+      <ion-input label="Correo electrónico" label-placement="floating" fill="outline" placeholder="Correo electrónico" autocomplete="false" />
+    </div>
+		<div class="input-group">
+      <ion-input label="Contraseña" label-placement="floating" fill="outline" placeholder="Contraseña" autocomplete="false" />
+		</div>
+		<ion-button expand="block">Iniciar sesion</ion-button>
+	</form>
+	<div class="social-message">
+		<div class="line"></div>	
+	</div>
+	<p class="signup">¿No tienes una cuenta?
+		<a rel="noopener noreferrer" [routerLink]="['/register']">Registrate</a>
+	</p>
+</div>
 </ion-content>
