@@ -9,27 +9,31 @@
 
 <ion-content [fullscreen]="true">
   <div class="form-container">
-    <form class="form">
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="submit()" novalidate>
       <div class="input-group">
-        <ion-input label="Nombre(s)" label-placement="stacked" fill="outline" placeholder="Nombre(s)" autocomplete="false" />
+        <ion-input formControlName="name" label="Nombre(s)" label-placement="stacked" fill="outline" placeholder="Nombre(s)" autocomplete="false"
+        errorText="El nombre es requerido"/>
       </div>
       <div class="input-group">
-        <ion-input label="Apellido(s)" label-placement="stacked" fill="outline" placeholder="Apellido(s)" autocomplete="false" />
+        <ion-input formControlName="surname" label="Apellido(s)" label-placement="stacked" fill="outline" placeholder="Apellido(s)" autocomplete="false" />
       </div>
       <div class="input-group">
-        <ion-input label="Correo electrónico" label-placement="stacked" fill="outline" placeholder="Correo electrónico" autocomplete="false" />
+        <ion-input formControlName="email" label="Correo electrónico" label-placement="stacked" fill="outline" placeholder="Correo electrónico" autocomplete="false"
+        [errorText]="registerForm.get('email')?.hasError('email') ? 'El correo electrónico no es valido' : 'El correo electrónico es requerido'"/>
       </div>
       <div class="input-group">
-        <ion-input type="password" label="Contraseña" label-placement="stacked" fill="outline" placeholder="Contraseña" autocomplete="false">
+        <ion-input formControlName="password" type="password" label="Contraseña" label-placement="stacked" fill="outline" placeholder="Contraseña" autocomplete="false"
+        errorText="La contraseña es requerida">
           <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
       </div>
       <div class="input-group">
-        <ion-input type="password" label="Confirmar contraseña" label-placement="stacked" fill="outline" placeholder="Confirmar contraseña" autocomplete="false">
+        <ion-input formControlName="confirmPassword" type="password" label="Confirmar contraseña" label-placement="stacked" fill="outline" placeholder="Confirmar contraseña" autocomplete="false"
+        [errorText]="registerForm.get('confirmPassword')?.hasError('notSame') ? 'Las contraseña no son iguales' : 'La contraseña es requerida'">
           <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
       </div>
-      <ion-button expand="block">Registrar</ion-button>
+      <ion-button expand="block" type="submit">Registrar</ion-button>
     </form>
   </div>
 </ion-content>

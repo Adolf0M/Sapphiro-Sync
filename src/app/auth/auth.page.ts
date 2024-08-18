@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, Validators } from '@angular/forms';
-import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
-import { RouterModule } from '@angular/router';
+import { FormBuilder, FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services';
 
 @Component({
   selector: 'app-auth',
@@ -10,25 +11,28 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./auth.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    IonInput,
-    CommonModule,
-    IonButton,
-    RouterModule
+    IonicModule,
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthPage {
 
-  private readonly fb = inject(FormBuilder);
-
+  private readonly authService = inject(AuthService);
+  private readonly fb = inject(NonNullableFormBuilder);
+  private readonly router = inject(Router);
 
   authForm = this.fb.group({
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
 
   async submit() {
     if(!this.authForm.valid) return this.authForm.markAllAsTouched();
+    const success = await this.authService.login(this.authForm.getRawValue());
+    if(success) {
+      this.router.navigate(['/dashboard'], {replaceUrl: true});
+    }
   }
 
 }
