@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+const redirectToLogin = () => redirectUnauthorizedTo(['auth']);
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
@@ -17,7 +19,23 @@ export const routes: Routes = [
   },
   {
     path: 'folder/:id',
-    loadComponent: () =>
-      import('./folder/folder.page').then((m) => m.FolderPage),
+    loadComponent: () => import('./folder/folder.page').then((m) => m.FolderPage),
+    ...canActivate(redirectToLogin),
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.page').then( m => m.DashboardPage),
+    ...canActivate(redirectToLogin),
+    children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        loadComponent: () => import('./home/home.page').then( m => m.HomePage)
+      },
+    ]
   },
 ];
