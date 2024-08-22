@@ -1,14 +1,18 @@
 <ion-content [fullscreen]="true" class="container">
 <div class="form-container">
 	<p class="title">Acceso</p>
-	<form class="form">
+	<form class="form" [formGroup]="authForm" (ngSubmit)="submit()" novalidate>
     <div class="input-group">
-      <ion-input label="Correo electrónico" label-placement="floating" fill="outline" placeholder="Correo electrónico" autocomplete="false" />
+      <ion-input formControlName="email" label="Correo electrónico" label-placement="stacked" fill="outline" placeholder="Correo electrónico" autocomplete="false"
+      [errorText]="authForm.get('email')?.hasError('email') ? 'El correo electrónico no es valido' : 'El correo electrónico es requerido'"/>
     </div>
 		<div class="input-group">
-      <ion-input label="Contraseña" label-placement="floating" fill="outline" placeholder="Contraseña" autocomplete="false" />
-		</div>
-		<ion-button expand="block">Iniciar sesion</ion-button>
+      <ion-input formControlName="password" type="password" label="Contraseña" label-placement="stacked" fill="outline" placeholder="Contraseña" autocomplete="false"
+      errorText="La contraseña es requerida">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </div>
+		<ion-button expand="block" type="submit">Iniciar sesion</ion-button>
 	</form>
 	<div class="social-message">
 		<div class="line"></div>	
