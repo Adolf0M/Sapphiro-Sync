@@ -18,9 +18,7 @@ export class SpinnerService {
     this.loading.present();
   }
 
-  async hideLoading() {
-    if (this.loading) {
-      await this.loading.dismiss();
-    }
+  hideLoading() {
+    this.loading?.dismiss();
   }
 }

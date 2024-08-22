@@ -1,0 +1,65 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+    <ion-title>Crear tarea</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="submit()" [strong]="true">Guardar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form class="form-container" [formGroup]="taskForm" novalidate>
+    <div class="input-group">
+      <ion-input formControlName="name" label="Nombre" label-placement="stacked" fill="outline" placeholder="Nombre de la tarea" autocomplete="false"
+      errorText="El nombre es requerido"/>
+    </div>
+    <div class="input-group">
+      <ion-textarea formControlName="description" label="Descripción" labelPlacement="stacked" fill="outline" placeholder="Descripción de la tarea"
+      errorText="La descripción es requerida" [autoGrow]="true"/>
+    </div>
+    <div class="input-group">
+    </div>
+    <div class="input-group">
+      <ion-input formControlName="startDate" [value]="taskForm.get('startDate')?.value | date: 'dd/MM/yyyy'" label="Fecha de inicio" label-placement="stacked" fill="outline" placeholder="Fecha de inicio" autocomplete="false"
+      id="startDate" errorText="La fecha de inicio es requerida"/>
+      <ion-popover trigger="startDate" size="cover" side="bottom">
+        <ng-template>
+          <ion-datetime #datetimeS [showDefaultButtons]="true" presentation="date" locale="es-MX" formControlName="startDate">
+            <ion-buttons slot="buttons">
+              <ion-button color="success" (click)="currentDate('startDate'); datetimeS.cancel(true)">Hoy</ion-button>
+              <ion-button color="danger" (click)="datetimeS.cancel(true)">Cerrar</ion-button>
+              <ion-button color="primary" (click)="datetimeS.confirm(true)">Confirmar</ion-button>
+            </ion-buttons>
+          </ion-datetime>
+        </ng-template>
+      </ion-popover>
+    </div>
+    <div class="input-group">
+      <ion-input formControlName="endDate" [value]="taskForm.get('endDate')?.value | date: 'dd/MM/yyyy'" label="Fecha final" label-placement="stacked" fill="outline" placeholder="Fecha final" autocomplete="false"
+      id="endDate" errorText="La fecha de inicio es requerida"/>
+      <ion-popover trigger="endDate" size="cover" side="bottom">
+        <ng-template>
+          <ion-datetime #datetimeE [showDefaultButtons]="true" presentation="date" locale="es-MX" formControlName="endDate">
+          <ion-buttons slot="buttons">
+            <ion-button color="success" (click)="currentDate('endDate'); datetimeE.cancel(true)">Hoy</ion-button>
+            <ion-button color="danger" (click)="datetimeE.cancel(true)">Cerrar</ion-button>
+            <ion-button color="primary" (click)="datetimeE.confirm(true)">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-datetime>
+        </ng-template>
+      </ion-popover>
+    </div>
+    <div class="input-group">
+      <ion-select formControlName="users" label="Asignar usuarios" label-placement="stacked" fill="outline" [multiple]="true"
+      placeholder="Seleccione usuarios" okText="Confirmar" cancelText="Cancelar"
+      errorText="Seleccionar usuarios es requerido">
+        @for(user of (users$ | async); track user.uid) {
+          <ion-select-option [value]="user.uid">{{user.name}} {{user.surname}}</ion-select-option>
+        }
+      </ion-select>
+    </div>
+  </form>
+</ion-content>

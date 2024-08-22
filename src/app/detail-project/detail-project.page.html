@@ -1,0 +1,81 @@
+@if(project$ | async; as project) {
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/dashboard/home"/>
+      </ion-buttons>
+      <ion-title>{{project.data().name}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]="true">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Descripción del proyecto</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{project.data().description}}</p>
+        <div class="flex">
+          <div>
+            <p>Fecha inicio</p>
+            <p>{{project.data().startDate | date: 'dd/MM/yyyy'}}</p>
+          </div>
+          <div>
+            <p>Fecha final</p>
+            <p>{{project.data().endDate | date: 'dd/MM/yyyy'}}</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Tareas</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    @for(task of tasks$ | async; track task.uid){
+      <ion-card class="tasks">
+        <ion-card-header>
+          <ion-card-subtitle>
+            {{task.name}}
+            <ion-badge [color]="task.status === 'ACTIVO' ? 'primary' : 'success'">{{task.status}}</ion-badge>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{task.description}}</p>
+          <div class="flex">
+            <div>
+              <p>Fecha inicio</p>
+              <p>{{project.data().startDate | date: 'dd/MM/yyyy'}}</p>
+            </div>
+            <div>
+              <p>Fecha final</p>
+              <p>{{project.data().endDate | date: 'dd/MM/yyyy'}}</p>
+            </div>
+          </div>
+          <p>Usuarios</p>
+          <div class="flex-row">
+            @for(user of task.assignedUsers; track user.uid; let last =$last) {
+              <p>{{user.name}} {{user.surname}}{{last ? '.' : ', '}} </p>
+            }
+          </div>
+        </ion-card-content>
+        <div class="card-buttons">
+          <ion-button fill="clear" (click)="detailTask(task.uid)">Detalles</ion-button>
+        </div>
+      </ion-card>
+    } @empty {
+      <ion-card>
+        <ion-card-content>
+          <p>No hay tareas</p>
+        </ion-card-content>
+      </ion-card>
+    }
+
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="addTask()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content> 
+}
