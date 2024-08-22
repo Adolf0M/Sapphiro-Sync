@@ -17,6 +17,11 @@ export class AuthService {
 
   private readonly collection = collection(this.firestore, 'users');
 
+
+  get currentUser() {
+    return this.auth.currentUser;
+  }
+
   async login(data: ILogin): Promise<boolean> {
     try {
       this.spinner.showLoading('Iniciando...');
@@ -46,7 +51,7 @@ export class AuthService {
     }
   }
 
-  async signOut() {
+  async signOut(): Promise<boolean> {
     try {
       await this.auth.signOut();
       return true;

@@ -1,0 +1,16 @@
+.text-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ion-card{
+  border-radius: 20px;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: end;
+}
