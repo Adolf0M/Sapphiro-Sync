@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { IonRouterLink } from '@ionic/angular/standalone';
 import { from, Observable } from 'rxjs';
 import { ProjectService, TaskService } from '../services';
-import { ModalService } from '../utils';
+import { ModalService, ToastService } from '../utils';
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
 import { TaskModalComponent } from '../components/task-modal/task-modal.component';
@@ -27,6 +27,7 @@ export class DetailProjectPage {
   private readonly taskService = inject(TaskService);
   private readonly modalService = inject(ModalService);
   private readonly router = inject(Router);
+  private readonly toastService = inject(ToastService);
 
   @Input()
   set uid(value: string) {
@@ -45,6 +46,14 @@ export class DetailProjectPage {
 
   addTask() {
     this.modalService.open(TaskModalComponent, {projectUid: this.projectUid});
+  }
+
+  async processProject() {
+    const success = await this.projectService.updateStatus(this.projectUid, 'FINALIZADO');
+    if(success) {
+      this.project$ = from(this.projectService.getProject(this.projectUid));
+      this.toastService.show('Proyecto finalizado con exito');
+    }
   }
 
   detailTask(uid: string) {

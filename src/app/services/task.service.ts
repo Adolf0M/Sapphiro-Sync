@@ -57,6 +57,7 @@ export class TaskService {
         startDate: data.startDate,
         endDate: data.endDate,
         status: 'ACTIVO',
+        priority: data.priority,
         users: data.users,
         projectUid
       });

@@ -30,6 +30,7 @@ export class TaskModalComponent {
 
   taskForm = this.fb.group({
     name: ['', Validators.required],
+    priority: ['', Validators.required],
     description: ['', Validators.required],
     startDate: ['', Validators.required],
     endDate: ['', Validators.required],

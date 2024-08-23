@@ -15,6 +15,7 @@
         <ion-card-title>Descripción</ion-card-title>
       </ion-card-header>
       <ion-card-content>
+        <ion-badge [color]="task.data().status === 'BAJA' ? 'tertiary' : task.data().status === 'MEDIA' ? 'warning' : 'danger'">{{task.data().priority}}</ion-badge>
         <p>{{task.data().description}}</p>
         <div class="flex">
           <div>

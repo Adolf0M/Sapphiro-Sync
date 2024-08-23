@@ -51,6 +51,7 @@ export class DetailTaskPage {
   async processTask() {
     const success = await this.taskService.updateStatus(this._taskUid, 'FINALIZADO');
     if(success) {
+      this.task$ = from(this.taskService.getTask(this._taskUid));
       this.toastService.show('Tarea finalizada con exito');
     }
   }
