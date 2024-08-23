@@ -32,6 +32,18 @@
       </div>
     </ion-card>
 
+    <ion-grid [fixed]="true">
+      <ion-row>
+        @for(image of images$ | async; track image.uid){
+          <ion-col size="6">
+            <ion-img [src]="image.url"></ion-img>
+          </ion-col>        
+        }
+      </ion-row>
+    </ion-grid>
+
+
+
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
       <ion-fab-button (click)="addPhoto()">
         <ion-icon name="camera"></ion-icon>
