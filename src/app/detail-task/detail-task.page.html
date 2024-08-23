@@ -1,0 +1,41 @@
+@if(task$ | async; as task) {
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/dashboard/project/{{_projectUid}}"/>
+      </ion-buttons>
+      <ion-title>{{task.data().name}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <ion-card>
+      <ion-card-header>
+        <ion-badge [color]="task.data().status === 'ACTIVO' ? 'primary' : 'success'">{{task.data().status}}</ion-badge>
+        <ion-card-title>Descripción</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{task.data().description}}</p>
+        <div class="flex">
+          <div>
+            <p>Fecha inicio</p>
+            <p>{{task.data().startDate | date: 'dd/MM/yyyy'}}</p>
+          </div>
+          <div>
+            <p>Fecha final</p>
+            <p>{{task.data().endDate | date: 'dd/MM/yyyy'}}</p>
+          </div>
+        </div>
+      </ion-card-content>
+      <div class="card-buttons" *ngIf="task.data().status === 'ACTIVO'">
+        <ion-button fill="clear" color="success" (click)="processTask()">Procesar</ion-button>
+      </div>
+    </ion-card>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="addPhoto()">
+        <ion-icon name="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>
+}

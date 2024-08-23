@@ -36,6 +36,20 @@ export const routes: Routes = [
         path: 'home',
         loadComponent: () => import('./home/home.page').then( m => m.HomePage)
       },
+      {
+        path: 'project/:uid',
+        loadComponent: () => import('./detail-project/detail-project.page').then( m => m.DetailProjectPage)
+      },
+      {
+        path: 'detail-task/:projectuid/:uid',
+        loadComponent: () => import('./detail-task/detail-task.page').then( m => m.DetailTaskPage)
+      },
     ]
   },
+  {
+    path: '**',
+    redirectTo: 'dashboard'
+  }
+
+
 ];
