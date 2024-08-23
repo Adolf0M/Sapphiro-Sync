@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ToastService } from '../utils';
 import { camera } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-detail-task',
@@ -18,8 +20,8 @@ import { addIcons } from 'ionicons';
 export class DetailTaskPage {
 
   private readonly taskService = inject(TaskService);
-  private readonly router = inject(Router);
   private readonly toastService = inject(ToastService);
+  private readonly storageService = inject(StorageService);
 
   @Input()
   set projectUid(value:string) {
@@ -31,12 +33,14 @@ export class DetailTaskPage {
   set uid(value:string) {
     this._taskUid = value;
     this.task$ = from(this.taskService.getTask(value));
+    this.images$ = this.storageService.getImages(value);
   }
 
 
   _projectUid!: string;
   _taskUid!: string;
   task$!: Observable<any>;
+  images$!: Observable<any>;
 
   constructor() {
     addIcons({ camera });
@@ -52,8 +56,19 @@ export class DetailTaskPage {
   }
 
 
-  addPhoto() {
-
+  async addPhoto() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera
+    });
+    const response = await fetch(image.webPath!);
+    const blob = await response.blob();
+    const success = await this.storageService.create(blob, `${new Date().getTime()}`, this._taskUid);
+    if(success) {
+      this.toastService.show('Imagen subida con exito');
+    }
   }
 
 }

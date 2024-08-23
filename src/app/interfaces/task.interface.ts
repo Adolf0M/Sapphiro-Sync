@@ -12,3 +12,10 @@ export interface ITask {
   // users
   assignedUsers?: IUser[];
 }
+
+
+export interface ITaskImage {
+  uid: string;
+  url: string;
+  taskUid: string;
+}

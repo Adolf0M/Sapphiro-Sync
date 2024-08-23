@@ -8,6 +8,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+defineCustomElements(window);
 
 bootstrapApplication(AppComponent, {
   providers: [
