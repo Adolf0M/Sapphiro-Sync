@@ -18,11 +18,6 @@ export const routes: Routes = [
     loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
   },
   {
-    path: 'folder/:id',
-    loadComponent: () => import('./folder/folder.page').then((m) => m.FolderPage),
-    ...canActivate(redirectToLogin),
-  },
-  {
     path: 'dashboard',
     loadComponent: () => import('./dashboard/dashboard.page').then( m => m.DashboardPage),
     ...canActivate(redirectToLogin),
@@ -37,6 +32,10 @@ export const routes: Routes = [
         loadComponent: () => import('./home/home.page').then( m => m.HomePage)
       },
       {
+        path: 'finished',
+        loadComponent: () => import('./finished/finished.page').then( m => m.FinishedPage)
+      },
+      {
         path: 'project/:uid',
         loadComponent: () => import('./detail-project/detail-project.page').then( m => m.DetailProjectPage)
       },
@@ -49,7 +48,7 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: 'dashboard'
-  }
+  },
 
 
 ];

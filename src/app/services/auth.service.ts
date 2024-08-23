@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "@angular/fire/auth";
 import { ILogin, IRegister } from "../interfaces/user.interface";
-import { collection, doc, Firestore, setDoc,  } from "@angular/fire/firestore";
+import { collection, doc, Firestore, getDoc, setDoc,  } from "@angular/fire/firestore";
 import { AlertService, firebaseAuthError, SpinnerService } from "../utils";
 
 
@@ -20,6 +20,10 @@ export class AuthService {
 
   get currentUser() {
     return this.auth.currentUser;
+  }
+
+  async getUser() {
+    return await getDoc(doc(this.collection, this.currentUser?.uid));
   }
 
   async login(data: ILogin): Promise<boolean> {
@@ -53,11 +57,14 @@ export class AuthService {
 
   async signOut(): Promise<boolean> {
     try {
+      this.spinner.showLoading('Cerrando sesión...');
       await this.auth.signOut();
       return true;
     } catch (error: any) {
       this.alertService.show('Error', firebaseAuthError.get(error.code) as string);
       return false;
+    } finally {
+      this.spinner.hideLoading();
     }
   }
   

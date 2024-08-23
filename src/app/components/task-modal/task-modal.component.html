@@ -17,6 +17,14 @@
       errorText="El nombre es requerido"/>
     </div>
     <div class="input-group">
+      <ion-select label="Prioridad" label-placement="stacked" fill="outline" placeholder="Seleccionar prioridad"
+      formControlName="priority" errorText="La prioridad es requerida">
+        <ion-select-option value="BAJA">BAJA</ion-select-option>
+        <ion-select-option value="MEDIA">MEDIA</ion-select-option>
+        <ion-select-option value="ALTA">ALTA</ion-select-option>
+      </ion-select>
+    </div>
+    <div class="input-group">
       <ion-textarea formControlName="description" label="Descripción" labelPlacement="stacked" fill="outline" placeholder="Descripción de la tarea"
       errorText="La descripción es requerida" [autoGrow]="true"/>
     </div>

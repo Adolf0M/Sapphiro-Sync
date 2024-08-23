@@ -27,7 +27,7 @@ export class HomePage {
   private readonly modalService = inject(ModalService);
   private readonly projectService = inject(ProjectService);
 
-  projects$: Observable<IProject[]> = this.projectService.getProjects();
+  projects$: Observable<IProject[]> = this.projectService.getProjects('ACTIVO');
 
   constructor() {
     addIcons({ add });
@@ -35,12 +35,6 @@ export class HomePage {
 
   add() {
     this.modalService.open(ProjectModalComponent);
-  }
-
-  private getProjects() {
-    this.projectService.getProjects().subscribe(e => {
-      console.log(e);
-    });
   }
 
 }

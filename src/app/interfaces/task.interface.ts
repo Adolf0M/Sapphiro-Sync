@@ -6,6 +6,7 @@ export interface ITask {
   description: string;
   startDate: Date|string;
   endDate: Date|string;
+  priority: string;
   status: string;
   users: Pick<IUser, 'uid'>[];
 

@@ -11,6 +11,8 @@
   <ion-content [fullscreen]="true">
     <ion-card>
       <ion-card-header>
+        <ion-badge [color]="project.data().status === 'ACTIVO' ? 'primary' : 'success'">{{project.data().status}}</ion-badge>
+        <ion-badge [color]="project.data().priority === 'BAJA' ? 'tertiary' : 'success'">{{project.data().priority}}</ion-badge>
         <ion-card-title>Descripción del proyecto</ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -26,6 +28,9 @@
           </div>
         </div>
       </ion-card-content>
+      <div class="card-buttons">
+        <ion-button fill="clear" (click)="processProject()">Procesar</ion-button>
+      </div>
     </ion-card>
     <ion-card>
       <ion-card-header>
@@ -38,6 +43,7 @@
           <ion-card-subtitle>
             {{task.name}}
             <ion-badge [color]="task.status === 'ACTIVO' ? 'primary' : 'success'">{{task.status}}</ion-badge>
+            <ion-badge [color]="task.status === 'BAJA' ? 'tertiary' : task.status === 'MEDIA' ? 'warning' : 'danger'">{{task.priority}}</ion-badge>
           </ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
